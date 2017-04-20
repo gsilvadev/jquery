@@ -1,34 +1,34 @@
 init = function(){
-    var itens = $(".item-total");
-    var total = 0;
-
-    for(var i = 0; i < itens.length ; i++) {
-        var item = itens[i];
-        total = total + parseFloat($(item).text());
-    }
     $(".remove-item").click(removeItem)
     $(".undo").click(undo);
     atualizaDados();
 }
 
 undo = function(){
-    $("tr:visible").removeClass("recuperado");
-    var trs = $("tr:hidden");
+    var carrinho = $(this).closest(".carrinho");
+    carrinho.find("tr:visible").removeClass("recuperado");
+    var trs = carrinho.find("tr:hidden");
     trs.addClass("recuperado");
     trs.show();
+    atualizaDados();
 }
 
 atualizaDados = function(){
-    var itens = $(".item-total:visible");
-    var total = 0;
-    var qtd   = 0;
-    itens.each(function(){
-        var valorTotalItem = parseFloat($(this).text());
-        total += valorTotalItem;
-        qtd++;
-    });
-    $("#valor-total").text(total);
-    $("#quantidade-de-itens").text(qtd);
+    var carrinhos = $(".carrinho");
+
+    carrinhos.each(function(){
+        var carrinho = $(this);
+        var itens = carrinho.find(".item-total:visible");
+        var total = 0;
+        var qtd   = 0;
+        itens.each(function(){
+            var valorTotalItem = parseFloat($(this).text());
+            total += valorTotalItem;
+            qtd++;
+        });
+        carrinho.find(".valor-total").text(total);
+        carrinho.find(".quantidade-de-itens").text(qtd);
+    })
 }
 
 removeItem = function(event){
