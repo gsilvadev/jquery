@@ -1,7 +1,13 @@
-init = function(){
+postInit = function(){
     $(".remove-item").click(removeItem)
     $(".undo").click(undo);
     atualizaDados();
+
+    $(".carrinho").each(function(){
+        $(this).find("tr:nth-child(3n)").each(function(){
+            novaPropaganda().insertAfter($(this));
+        });
+    });
 }
 
 undo = function(){
@@ -11,6 +17,18 @@ undo = function(){
     trs.addClass("recuperado");
     trs.show();
     atualizaDados();
+}
+
+novaPropaganda = function(){
+    var propagandas = ["O que acha de comprar um carro?",
+                       "O que acha de comprar uma moto?",
+                       "O que acha de comprar uma casa?",
+                       "O que acha de comprar um Playstation 4?"];
+    var posicao = Math.floor(Math.random() * propagandas.length);
+
+    var tr = $("<tr>").addClass("propaganda").append("<td>");
+    tr.find("td").attr("colspan", 6).text(propagandas[posicao]);
+    return tr;
 }
 
 atualizaDados = function(){
@@ -37,7 +55,7 @@ removeItem = function(event){
     self.closest("tr").hide();
     atualizaDados();
 }
-$(init);
+$(postInit);
 
 //closest(itemBusca) -- pega o ancestral mais próximo que atenda ao itemBusca
 //prev() -- pega o nó imediatamente antes
