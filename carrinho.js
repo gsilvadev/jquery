@@ -8,6 +8,18 @@ postInit = function(){
             novaPropaganda().insertAfter($(this));
         });
     });
+
+    //$(".carrinho tbody tr").on("mouseenter", daDestaque);
+    //$(".carrinho tbody tr").on("mouseleave", tiraDestaque);
+    $(".carrinho tbody tr").hover(daDestaque, tiraDestaque);
+}
+
+daDestaque = function(){
+    $(this).addClass("hovering");
+}
+
+tiraDestaque = function(){
+    $(this).removeClass("hovering");
 }
 
 undo = function(){
