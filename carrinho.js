@@ -7,11 +7,19 @@ init = function(){
         total = total + parseFloat($(item).text());
     }
     $(".remove-item").click(removeItem)
+    $(".undo").click(undo);
     atualizaDados();
 }
 
+undo = function(){
+    $("tr:visible").removeClass("recuperado");
+    var trs = $("tr:hidden");
+    trs.addClass("recuperado");
+    trs.show();
+}
+
 atualizaDados = function(){
-    var itens = $(".item-total");
+    var itens = $(".item-total:visible");
     var total = 0;
     var qtd   = 0;
     itens.each(function(){
@@ -26,7 +34,7 @@ atualizaDados = function(){
 removeItem = function(event){
     event.preventDefault(); 
     var self = $(this);
-    self.closest("tr").remove();
+    self.closest("tr").hide();
     atualizaDados();
 }
 $(init);
