@@ -12,14 +12,23 @@ postInit = function(){
     //$(".carrinho tbody tr").on("mouseenter", daDestaque);
     //$(".carrinho tbody tr").on("mouseleave", tiraDestaque);
     $(".carrinho tbody tr").hover(daDestaque, tiraDestaque);
+    $(".alterna-propagandas").click(alternaPropagandas);
+}
+
+alternaPropagandas = function(event){
+    event.preventDefault();
+    $(".propaganda").fadeToggle(1000);
+    $(".alterna-propagandas").toggle();
 }
 
 daDestaque = function(){
     $(this).addClass("hovering");
+    $(this).find(".remove-item").fadeIn(500);
 }
 
 tiraDestaque = function(){
     $(this).removeClass("hovering");
+    $(this).find(".remove-item").hide();
 }
 
 undo = function(){
